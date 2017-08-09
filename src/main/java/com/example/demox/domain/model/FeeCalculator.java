@@ -1,20 +1,16 @@
 package com.example.demox.domain.model;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.Date;
 
 public class FeeCalculator {
 
-    private FeeStrategy feeStrategy;
-    public FeeCalculator(FeeStrategy feeStrategy) {
-        this.feeStrategy = feeStrategy;
+    private FeeCalculationStrategy feeCalculationStrategy;
+    public FeeCalculator(FeeCalculationStrategy feeCalculationStrategy) {
+        this.feeCalculationStrategy = feeCalculationStrategy;
     }
 
-    public void setFeeStrategy(FeeStrategy feeStrategy) {
-        this.feeStrategy = feeStrategy;
+    public void setFeeCalculationStrategy(FeeCalculationStrategy feeCalculationStrategy) {
+        this.feeCalculationStrategy = feeCalculationStrategy;
     }
 
     public Fee calculateFee(Stopover stopover) {
@@ -22,7 +18,7 @@ public class FeeCalculator {
 
         }
 
-        return feeStrategy.calculateFee(new Long(3));
+        return feeCalculationStrategy.calculateFee(new Long(3));
     }
     private Long calculateHoursBetweenDates(Date start, Date end) {
         final long elapsedTime = (end.getTime() - start.getTime());

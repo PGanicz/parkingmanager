@@ -1,6 +1,5 @@
 package com.example.demox.domain.model;
 
-import java.util.Currency;
 import java.util.Date;
 
 public class Stopover {
@@ -27,7 +26,7 @@ public class Stopover {
     public void setDepartureDate(Date departure) {
         this.departure = departure;
     }
-    public Fee getFee(String currency, FeeStrategy strategy) {
+    public Fee getFee(String currency, FeeCalculationStrategy strategy) {
         return strategy.calculateFee(new Long(2));
     }
 }

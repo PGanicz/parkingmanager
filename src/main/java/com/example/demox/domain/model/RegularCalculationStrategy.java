@@ -2,7 +2,7 @@ package com.example.demox.domain.model;
 
 import java.math.BigDecimal;
 
-public class RegularStrategy implements FeeStrategy {
+public class RegularCalculationStrategy implements FeeCalculationStrategy {
 
 
     /*

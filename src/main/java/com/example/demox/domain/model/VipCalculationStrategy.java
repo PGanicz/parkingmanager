@@ -3,7 +3,7 @@ package com.example.demox.domain.model;
 import java.math.BigDecimal;
 
 
-public class VipStrategy implements FeeStrategy {
+public class VipCalculationStrategy implements FeeCalculationStrategy {
     @Override
     public Fee calculateFee(Long hours) {
         BigDecimal qFactor = new BigDecimal(1.5);
