@@ -4,6 +4,7 @@ import com.example.demox.application.ParkingCheckerService;
 
 import com.example.demox.domain.model.stepover.Stopover;
 import com.example.demox.domain.model.stepover.StopoverId;
+import com.example.demox.domain.model.stepover.UnknownStopoverException;
 import com.example.demox.interfaces.facade.ParkingCheckerServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 

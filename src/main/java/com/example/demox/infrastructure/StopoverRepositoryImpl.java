@@ -23,12 +23,12 @@ public class StopoverRepositoryImpl implements StopoverRepository {
 
     @Override
     public void update(Stopover stopover) {
-
+        inMemoryBase.put(stopover.stopoverId(), stopover);
     }
 
     @Override
     public Stopover findById(StopoverId id) {
-        return null;
+        return inMemoryBase.get(id);
     }
 
 }

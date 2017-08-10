@@ -17,5 +17,9 @@ public class Driver {
         this.driverId = driverId;
         this.type = type;
     }
+
+    public DriverId getDriverId() {
+        return driverId;
+    }
 }
 

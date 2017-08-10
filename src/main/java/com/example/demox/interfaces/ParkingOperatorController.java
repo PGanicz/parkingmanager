@@ -21,7 +21,7 @@ public class ParkingOperatorController {
     }
 
     @RequestMapping(value = "/stopover/start" , method = RequestMethod.GET)
-    public String checkIfParked(@RequestParam("VehicleId") String vehicleId) {
-        return Boolean.toString(parkingCheckerServiceFacade.check(vehicleId));
+    public String checkIfParked(@RequestParam("StopoverId") String stopoverId) {
+        return Boolean.toString(parkingCheckerServiceFacade.check(stopoverId));
     }
 }
