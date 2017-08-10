@@ -7,6 +7,7 @@ import com.example.demox.domain.model.driver.DriverRepository;
 import com.example.demox.domain.model.payment.Fee;
 import com.example.demox.domain.model.payment.FeeCalculationService;
 import com.example.demox.domain.model.payment.FeeRepository;
+import com.example.demox.domain.model.service.ClockService;
 import com.example.demox.domain.model.stepover.Stopover;
 import com.example.demox.domain.model.stepover.StopoverId;
 import com.example.demox.domain.model.stepover.StopoverRepository;
@@ -21,6 +22,12 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
     private StopoverRepository stopoverRepository;
     private DriverRepository driverRepository;
     private FeeRepository feeRepository;
+    private ClockService clockService;
+
+    @Autowired
+    public void setClockService(ClockService clockService) {
+        this.clockService = clockService;
+    }
 
     @Autowired
     public void setStopoverRepository(StopoverRepository stopoverRepository) {
@@ -40,8 +47,8 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
     @Override
     public StopoverId registerNewStopover(final DriverId driverId) {
         final StopoverId stopoverId = stopoverRepository.nextStopoverId();
-
-        final Stopover stopover = new Stopover(stopoverId, driverId, new Date());
+        final Date registrationDate = clockService.getCurrentDate();
+        final Stopover stopover = new Stopover(stopoverId, driverId, registrationDate);
 
         stopoverRepository.store(stopover);
 
@@ -50,7 +57,7 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
 
     @Override
     public void registerEndOfStopover(final StopoverId stopoverId) throws UnknownStopoverException {
-        final Date completionDate = new Date();
+        final Date completionDate = clockService.getCurrentDate();
         final Stopover stopover = stopoverRepository.findById(stopoverId);
         if (stopover == null) {
             throw new UnknownStopoverException(stopoverId);
@@ -64,8 +71,7 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
 
         stopoverRepository.update(stopover);
 
-        Fee fee = FeeCalculationService.countFee(stopover.getArrival(),
-                                                 stopover.getDeparture(),
+        Fee fee = FeeCalculationService.countFee(stopover,
                                                  driver);
         feeRepository.store(fee);
     }

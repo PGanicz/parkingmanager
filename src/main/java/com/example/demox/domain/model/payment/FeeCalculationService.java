@@ -13,7 +13,9 @@ public class FeeCalculationService {
     public static Fee countFee(Stopover stopover, Driver driver) {
         Date start = stopover.getArrival();
         Date end = stopover.isCompleted() ? stopover.getDeparture() : new Date();
-        return countFee(start, end, driver);
+        Fee fee = countFee(start, end, driver);
+        fee.setPaymentTime(end);
+        return fee;
     }
 
     public static Fee countFee(Date start, Date end, Driver driver) {

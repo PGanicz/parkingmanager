@@ -20,7 +20,7 @@ public class ParkingOperatorController {
         this.parkingCheckerServiceFacade = parkingCheckerServiceFacade;
     }
 
-    @RequestMapping(value = "/stopover/start" , method = RequestMethod.GET)
+    @RequestMapping(value = "/stopover/paid" , method = RequestMethod.GET)
     public String checkIfParked(@RequestParam("StopoverId") String stopoverId) {
         return Boolean.toString(parkingCheckerServiceFacade.check(stopoverId));
     }
