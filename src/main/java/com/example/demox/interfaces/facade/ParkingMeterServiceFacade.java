@@ -1,9 +1,11 @@
 package com.example.demox.interfaces.facade;
 
+import com.example.demox.interfaces.facade.dto.TicketDTO;
+
 public interface ParkingMeterServiceFacade {
-    String registerNewStopover(String driverId);
+    TicketDTO createNewTicket(String driverId);
 
-    void registerEndOfStopover(String stopoverId);
+    void payAFee(String ticketId);
 
-    String getCurrentFee(String stopoverId);
+    String getCurrentFee(String ticketId);
 }

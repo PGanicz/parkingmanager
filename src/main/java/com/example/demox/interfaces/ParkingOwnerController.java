@@ -21,8 +21,8 @@ public class ParkingOwnerController {
         this.earningsServiceFacade = earningsServiceFacade;
     }
 
-    @RequestMapping(value = "/earnings/{day}", method = RequestMethod.GET)
-    public String earnings(@RequestParam("day") String day) throws ParseException {
+    @RequestMapping(value = "/earnings", method = RequestMethod.GET)
+    public String earnings(String day) throws ParseException {
         FeeDTO feeDTO = earningsServiceFacade.getTotalEarningsForDay(day);
         return feeDTO.toString();
     }

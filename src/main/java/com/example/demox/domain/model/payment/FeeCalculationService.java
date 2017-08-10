@@ -1,18 +1,15 @@
 package com.example.demox.domain.model.payment;
 
 import com.example.demox.domain.model.driver.Driver;
-import com.example.demox.domain.model.stepover.Stopover;
-import javafx.scene.paint.Stop;
-import org.springframework.context.annotation.Bean;
+import com.example.demox.domain.model.ticket.Ticket;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class FeeCalculationService {
 
-    public static Fee countFee(Stopover stopover, Driver driver) {
-        Date start = stopover.getArrival();
-        Date end = stopover.isCompleted() ? stopover.getDeparture() : new Date();
+    public static Fee countFee(Ticket ticket,Date end, Driver driver) {
+        Date start = ticket.getCreationDate();
         Fee fee = countFee(start, end, driver);
         fee.setPaymentTime(end);
         return fee;

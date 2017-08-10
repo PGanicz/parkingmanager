@@ -1,21 +1,21 @@
 package com.example.demox.application.impl;
 
 import com.example.demox.application.ParkingCheckerService;
-import com.example.demox.domain.model.stepover.StopoverId;
-import com.example.demox.domain.model.stepover.StopoverRepository;
+import com.example.demox.domain.model.ticket.TicketId;
+import com.example.demox.domain.model.ticket.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ParkingCheckerServiceImpl implements ParkingCheckerService {
 
-    private StopoverRepository stopoverRepository;
+    private TicketRepository ticketRepository;
 
     @Autowired
-    public void setStopoverRepository(StopoverRepository stopoverRepository) {
-        this.stopoverRepository = stopoverRepository;
+    public void setTicketRepository(TicketRepository ticketRepository) {
+        this.ticketRepository = ticketRepository;
     }
 
     @Override
-    public boolean check(StopoverId stopoverId) {
+    public boolean getState(TicketId ticketId) {
         return false;
     }
 }

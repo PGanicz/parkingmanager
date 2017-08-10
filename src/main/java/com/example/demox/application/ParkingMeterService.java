@@ -2,15 +2,16 @@ package com.example.demox.application;
 
 import com.example.demox.domain.model.driver.DriverId;
 import com.example.demox.domain.model.payment.Fee;
-import com.example.demox.domain.model.stepover.StopoverId;
-import com.example.demox.domain.model.stepover.UnknownStopoverException;
+import com.example.demox.domain.model.ticket.Ticket;
+import com.example.demox.domain.model.ticket.TicketId;
+import com.example.demox.domain.model.ticket.UnknownTicketException;
 
 
 public interface ParkingMeterService {
-    StopoverId registerNewStopover(final DriverId driverId);
+    Ticket createNewTicket(final DriverId driverId);
 
-    void registerEndOfStopover(StopoverId stopoverId) throws UnknownStopoverException;
+    void payAFee(TicketId stopoverId) throws UnknownTicketException;
 
-    Fee getCurrentFee(StopoverId stopoverId) throws UnknownStopoverException;
+    Fee getCurrentFee(TicketId stopoverId) throws UnknownTicketException;
 }
 

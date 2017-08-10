@@ -1,7 +1,5 @@
 package com.example.demox.domain.model.payment;
 
-import com.example.demox.domain.model.stepover.StopoverId;
-
 import java.math.BigDecimal;
 import java.util.Date;
 

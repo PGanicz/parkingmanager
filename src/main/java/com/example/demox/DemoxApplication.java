@@ -9,11 +9,11 @@ import com.example.demox.application.impl.ParkingMeterServiceImpl;
 import com.example.demox.domain.model.clock.ClockService;
 import com.example.demox.domain.model.driver.DriverRepository;
 import com.example.demox.domain.model.payment.FeeRepository;
-import com.example.demox.domain.model.stepover.StopoverRepository;
+import com.example.demox.domain.model.ticket.TicketRepository;
 import com.example.demox.infrastructure.ClockServiceImpl;
 import com.example.demox.infrastructure.DriverRepositoryImpl;
 import com.example.demox.infrastructure.FeeRepostioryImpl;
-import com.example.demox.infrastructure.StopoverRepositoryImpl;
+import com.example.demox.infrastructure.TicketRepositoryImpl;
 import com.example.demox.interfaces.facade.EarningsServiceFacade;
 import com.example.demox.interfaces.facade.ParkingCheckerServiceFacade;
 import com.example.demox.interfaces.facade.ParkingMeterServiceFacade;
@@ -31,8 +31,8 @@ public class DemoxApplication {
 		return new ClockServiceImpl();
 	}
 	@Bean
-	StopoverRepository stopoverRepository() {
-		return new StopoverRepositoryImpl();
+	TicketRepository stopoverRepository() {
+		return new TicketRepositoryImpl();
 	}
 
 	@Bean

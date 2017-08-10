@@ -3,8 +3,6 @@ package com.example.demox.infrastructure;
 import com.example.demox.domain.model.driver.Driver;
 import com.example.demox.domain.model.driver.DriverId;
 import com.example.demox.domain.model.driver.DriverRepository;
-import com.example.demox.domain.model.stepover.Stopover;
-import com.example.demox.domain.model.stepover.StopoverId;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -8,18 +8,19 @@ import com.example.demox.domain.model.payment.Fee;
 import com.example.demox.domain.model.payment.FeeCalculationService;
 import com.example.demox.domain.model.payment.FeeRepository;
 import com.example.demox.domain.model.clock.ClockService;
-import com.example.demox.domain.model.stepover.Stopover;
-import com.example.demox.domain.model.stepover.StopoverId;
-import com.example.demox.domain.model.stepover.StopoverRepository;
+import com.example.demox.domain.model.ticket.Ticket;
 
-import com.example.demox.domain.model.stepover.UnknownStopoverException;
+import com.example.demox.domain.model.ticket.TicketId;
+import com.example.demox.domain.model.ticket.TicketRepository;
+
+import com.example.demox.domain.model.ticket.UnknownTicketException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
 public class ParkingMeterServiceImpl implements ParkingMeterService {
 
-    private StopoverRepository stopoverRepository;
+    private TicketRepository ticketRepository;
     private DriverRepository driverRepository;
     private FeeRepository feeRepository;
     private ClockService clockService;
@@ -30,8 +31,8 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
     }
 
     @Autowired
-    public void setStopoverRepository(StopoverRepository stopoverRepository) {
-        this.stopoverRepository = stopoverRepository;
+    public void setTicketRepository(TicketRepository ticketRepository) {
+        this.ticketRepository = ticketRepository;
     }
 
     @Autowired
@@ -45,45 +46,45 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
     }
 
     @Override
-    public StopoverId registerNewStopover(final DriverId driverId) {
-        final StopoverId stopoverId = stopoverRepository.nextStopoverId();
+    public Ticket createNewTicket(final DriverId driverId) {
+        final TicketId stopoverId = ticketRepository.nextTicketId();
         final Date registrationDate = clockService.getCurrentDate();
-        final Stopover stopover = new Stopover(stopoverId, driverId, registrationDate);
+        final Ticket ticket = new Ticket(stopoverId, driverId, registrationDate);
 
-        stopoverRepository.store(stopover);
+        ticketRepository.store(ticket);
 
-        return stopover.stopoverId();
+        return ticket;
     }
 
     @Override
-    public void registerEndOfStopover(final StopoverId stopoverId) throws UnknownStopoverException {
+    public void payAFee(final TicketId ticketId) throws UnknownTicketException {
         final Date completionDate = clockService.getCurrentDate();
-        final Stopover stopover = stopoverRepository.findById(stopoverId);
-        if (stopover == null) {
-            throw new UnknownStopoverException(stopoverId);
+        final Ticket ticket = ticketRepository.findById(ticketId);
+        if (ticket == null) {
+            throw new UnknownTicketException(ticketId);
         }
-        Driver driver = driverRepository.find(stopover.getDriverId());
+        Driver driver = driverRepository.find(ticket.getDriverId());
         if (driver == null) {
-            driver = new Driver(stopover.getDriverId(), Driver.Type.REGULAR);
+            driver = new Driver(ticket.getDriverId(), Driver.Type.REGULAR);
         }
+        ticketRepository.update(ticket);
 
-        stopover.setDepartureDate(completionDate);
-
-        stopoverRepository.update(stopover);
-
-        Fee fee = FeeCalculationService.countFee(stopover,
-                                                 driver);
+        Fee fee = FeeCalculationService.countFee(ticket,completionDate, driver);
         feeRepository.store(fee);
     }
 
-    @Override
-    public Fee getCurrentFee(StopoverId stopoverId) throws UnknownStopoverException {
-        final Stopover stopover = stopoverRepository.findById(stopoverId);
-        if (stopover == null) {
-            throw new UnknownStopoverException(stopoverId);
-        }
-        final Driver driver = driverRepository.find(stopover.getDriverId());
 
-        return FeeCalculationService.countFee(stopover, driver);
+    @Override
+    public Fee getCurrentFee(TicketId stopoverId) throws UnknownTicketException {
+        final Date currentDate = clockService.getCurrentDate();
+        final Ticket ticket = ticketRepository.findById(stopoverId);
+        if (ticket == null) {
+            throw new UnknownTicketException(stopoverId);
+        }
+        Driver driver = driverRepository.find(ticket.getDriverId());
+        if (driver == null) {
+            driver = new Driver(ticket.getDriverId(), Driver.Type.REGULAR);
+        }
+        return FeeCalculationService.countFee(ticket,currentDate, driver);
     }
 }

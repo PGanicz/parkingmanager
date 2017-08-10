@@ -1,12 +1,10 @@
 package com.example.demox.interfaces;
 
 import com.example.demox.interfaces.facade.ParkingMeterServiceFacade;
+import com.example.demox.interfaces.facade.dto.TicketDTO;
 import com.example.demox.interfaces.facade.internal.ParkingMeterServiceFacadeImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 class DriverController {
@@ -18,20 +16,21 @@ class DriverController {
         this.parkingMeterServiceFacade = parkingMeterServiceFacade;
     }
 
-    @RequestMapping(value = "/stopover/start", method = RequestMethod.POST)
-    public String start(@RequestParam("DriverId") String driverIdStr) {
-        return parkingMeterServiceFacade.registerNewStopover(driverIdStr);
+    @RequestMapping(value = "/ticket", method = RequestMethod.POST)
+    public @ResponseBody
+    TicketDTO start(@RequestParam("DriverId") String driverIdStr) {
+        return parkingMeterServiceFacade.createNewTicket(driverIdStr);
     }
 
-    @RequestMapping(value = "/stopover/end", method = RequestMethod.POST)
-    public String end(@RequestParam("StopoverId") String stopoverId) {
-        parkingMeterServiceFacade.registerEndOfStopover(stopoverId);
+    @RequestMapping(value = "/fee", method = RequestMethod.POST)
+    public @ResponseBody
+    String end(@RequestParam("StopoverId") String stopoverId) {
+        parkingMeterServiceFacade.createNewTicket(stopoverId);
         return "Paid! Done";
     }
 
-    @RequestMapping(value = "/stopover/fee", method = RequestMethod.GET)
+    @RequestMapping(value = "/fee", method = RequestMethod.GET)
     public String getFee(@RequestParam("StopoverId") String stopoverId) {
         return parkingMeterServiceFacade.getCurrentFee(stopoverId);
     }
-
 }

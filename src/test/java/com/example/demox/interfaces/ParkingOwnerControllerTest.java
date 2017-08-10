@@ -1,4 +1,4 @@
 package com.example.demox.interfaces;
 
-public class ParkingOwnerControllerTEst {
+public class ParkingOwnerControllerTest {
 }
