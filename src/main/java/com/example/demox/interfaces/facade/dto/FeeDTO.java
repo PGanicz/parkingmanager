@@ -2,18 +2,26 @@ package com.example.demox.interfaces.facade.dto;
 
 public class FeeDTO {
     private final String value;
-    private final String currenct;
+    private final String currency;
 
-    public FeeDTO(String value, String currenct) {
+    public FeeDTO(String value, String currency) {
         this.value = value;
-        this.currenct = currenct;
+        this.currency = currency;
     }
 
     public String getValue() {
         return value;
     }
 
-    public String getCurrenct() {
-        return currenct;
+    public String getCurrency() {
+        return currency;
+    }
+
+    @Override
+    public String toString() {
+        return "FeeDTO{" +
+                "value='" + value + '\'' +
+                ", currency='" + currency + '\'' +
+                '}';
     }
 }

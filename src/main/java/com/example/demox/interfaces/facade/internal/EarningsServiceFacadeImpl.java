@@ -6,6 +6,8 @@ import com.example.demox.interfaces.facade.EarningsServiceFacade;
 import com.example.demox.interfaces.facade.dto.FeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EarningsServiceFacadeImpl implements EarningsServiceFacade {
@@ -17,8 +19,10 @@ public class EarningsServiceFacadeImpl implements EarningsServiceFacade {
     }
 
     @Override
-    public FeeDTO getTotalEarningsForDay(Date date) {
-        final Fee fee = earningsService.getTotalEarningsForDay(date);
+    public FeeDTO getTotalEarningsForDay(String date) throws ParseException {
+        SimpleDateFormat parser = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy");
+        Date dayDate = parser.parse(date);
+        final Fee fee = earningsService.getTotalEarningsForDay(dayDate);
         final FeeDTO feeDTO = new FeeDTO(fee.getFine().toString(), fee.getCurrency());
 
         return feeDTO;
