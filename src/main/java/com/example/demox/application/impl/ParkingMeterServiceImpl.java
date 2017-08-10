@@ -11,6 +11,7 @@ import com.example.demox.domain.model.stepover.NumberPlate;
 import com.example.demox.domain.model.stepover.Stopover;
 import com.example.demox.domain.model.stepover.StopoverId;
 import com.example.demox.domain.model.stepover.StopoverRepository;
+import javafx.scene.paint.Stop;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -55,5 +56,13 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
 
         Fee fee = FeeCalculationService.countFee(stopover, driver);
         feeRepository.store(fee);
+    }
+
+    @Override
+    public Fee getCurrentFee(StopoverId stopoverId) {
+        final Stopover stopover = stopoverRepository.findById(stopoverId);
+        final Driver driver = driverRepository.find(stopover.getDriverId());
+
+        return FeeCalculationService.countFee(stopover, driver);
     }
 }

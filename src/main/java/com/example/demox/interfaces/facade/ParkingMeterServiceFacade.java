@@ -4,4 +4,6 @@ public interface ParkingMeterServiceFacade {
     String registerNewStopover(String VehicleId, String driverId);
 
     void registerEndOfStopover(String stopoverId);
+
+    String getCurrentFee(String stopoverId);
 }

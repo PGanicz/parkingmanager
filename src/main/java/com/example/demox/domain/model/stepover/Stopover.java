@@ -1,7 +1,5 @@
 package com.example.demox.domain.model.stepover;
 
-import com.example.demox.domain.model.payment.Fee;
-import com.example.demox.domain.model.payment.FeeCalculationStrategy;
 import com.example.demox.domain.model.driver.DriverId;
 
 import java.util.Date;

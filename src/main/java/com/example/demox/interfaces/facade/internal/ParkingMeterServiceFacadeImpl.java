@@ -2,6 +2,7 @@ package com.example.demox.interfaces.facade.internal;
 
 import com.example.demox.application.ParkingMeterService;
 import com.example.demox.domain.model.driver.DriverId;
+import com.example.demox.domain.model.payment.Fee;
 import com.example.demox.domain.model.stepover.StopoverId;
 import com.example.demox.domain.model.stepover.NumberPlate;
 import com.example.demox.interfaces.facade.ParkingMeterServiceFacade;
@@ -30,5 +31,12 @@ public class ParkingMeterServiceFacadeImpl implements ParkingMeterServiceFacade 
         final StopoverId stopoverId = new StopoverId(stopoverIdStr);
 
         parkingMeterService.registerEndOfStopover(stopoverId);
+    }
+
+    @Override
+    public String getCurrentFee(String stopoverIdStr) {
+        final StopoverId stopoverId = new StopoverId(stopoverIdStr);
+        Fee fee = parkingMeterService.getCurrentFee(stopoverId);
+        return fee.getFine().longValue() + " " +  fee.getCurrency();
     }
 }
