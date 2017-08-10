@@ -12,4 +12,10 @@ public class Driver {
     public Type getType() {
         return type;
     }
+
+    public Driver(DriverId driverId, Type type) {
+        this.driverId = driverId;
+        this.type = type;
+    }
 }
+
