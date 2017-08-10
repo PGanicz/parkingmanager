@@ -4,6 +4,7 @@ package com.example.demox.interfaces;
 import com.example.demox.application.ParkingCheckerService;
 import com.example.demox.interfaces.facade.ParkingCheckerServiceFacade;
 import com.example.demox.interfaces.facade.ParkingMeterServiceFacade;
+import com.example.demox.interfaces.facade.dto.StateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,7 @@ public class ParkingOperatorController {
     }
 
     @RequestMapping(value = "/state" , method = RequestMethod.GET)
-    public String checkIfParked(@RequestParam("StopoverId") String stopoverId) {
-        return Boolean.toString(parkingCheckerServiceFacade.getState(stopoverId));
+    public StateDTO getStateForVehicle(@RequestParam("NumberPlate") String numberPlate) {
+        return parkingCheckerServiceFacade.getState(numberPlate);
     }
 }

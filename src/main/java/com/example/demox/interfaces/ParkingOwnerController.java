@@ -4,10 +4,7 @@ import com.example.demox.application.EarningsService;
 import com.example.demox.interfaces.facade.EarningsServiceFacade;
 import com.example.demox.interfaces.facade.dto.FeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
@@ -22,8 +19,8 @@ public class ParkingOwnerController {
     }
 
     @RequestMapping(value = "/earnings", method = RequestMethod.GET)
-    public String earnings(String day) throws ParseException {
-        FeeDTO feeDTO = earningsServiceFacade.getTotalEarningsForDay(day);
-        return feeDTO.toString();
+    public @ResponseBody
+    FeeDTO getEarningsForDay(String day) throws ParseException {
+        return earningsServiceFacade.getTotalEarningsForDay(day);
     }
 }

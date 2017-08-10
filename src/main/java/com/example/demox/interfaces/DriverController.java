@@ -1,6 +1,7 @@
 package com.example.demox.interfaces;
 
 import com.example.demox.interfaces.facade.ParkingMeterServiceFacade;
+import com.example.demox.interfaces.facade.dto.FeeDTO;
 import com.example.demox.interfaces.facade.dto.TicketDTO;
 import com.example.demox.interfaces.facade.internal.ParkingMeterServiceFacadeImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,13 @@ class DriverController {
     }
 
     @RequestMapping(value = "/fee", method = RequestMethod.POST)
-    public @ResponseBody
-    String end(@RequestParam("TicketId") String ticketId) {
+    public void payFee(@RequestParam("TicketId") String ticketId) {
         parkingMeterServiceFacade.payAFee(ticketId);
-        return "Paid! Done";
     }
 
     @RequestMapping(value = "/fee", method = RequestMethod.GET)
-    public String getFee(@RequestParam("StopoverId") String stopoverId) {
+    public @ResponseBody
+    FeeDTO getFee(@RequestParam("TicketId") String stopoverId) {
         return parkingMeterServiceFacade.getCurrentFee(stopoverId);
     }
 }

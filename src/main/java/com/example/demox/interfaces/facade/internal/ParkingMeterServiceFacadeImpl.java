@@ -8,6 +8,7 @@ import com.example.demox.domain.model.ticket.Ticket;
 import com.example.demox.domain.model.ticket.TicketId;
 import com.example.demox.domain.model.ticket.UnknownTicketException;
 import com.example.demox.interfaces.facade.ParkingMeterServiceFacade;
+import com.example.demox.interfaces.facade.dto.FeeDTO;
 import com.example.demox.interfaces.facade.dto.TicketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,7 +39,7 @@ public class ParkingMeterServiceFacadeImpl implements ParkingMeterServiceFacade 
     }
 
     @Override
-    public String getCurrentFee(String stopoverIdStr) {
+    public FeeDTO getCurrentFee(String stopoverIdStr) {
         final TicketId stopoverId = new TicketId(stopoverIdStr);
         Fee fee = null;
         try {
@@ -46,6 +47,6 @@ public class ParkingMeterServiceFacadeImpl implements ParkingMeterServiceFacade 
         } catch (UnknownTicketException e) {
             e.printStackTrace();
         }
-        return fee.getFine().longValue() + " " +  fee.getCurrency();
+        return new FeeDTO(fee);
     }
 }

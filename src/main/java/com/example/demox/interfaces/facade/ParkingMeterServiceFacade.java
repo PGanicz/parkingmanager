@@ -1,5 +1,6 @@
 package com.example.demox.interfaces.facade;
 
+import com.example.demox.interfaces.facade.dto.FeeDTO;
 import com.example.demox.interfaces.facade.dto.TicketDTO;
 
 public interface ParkingMeterServiceFacade {
@@ -7,5 +8,5 @@ public interface ParkingMeterServiceFacade {
 
     void payAFee(String ticketId);
 
-    String getCurrentFee(String ticketId);
+    FeeDTO getCurrentFee(String ticketId);
 }

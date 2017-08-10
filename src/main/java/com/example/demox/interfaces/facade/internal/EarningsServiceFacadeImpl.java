@@ -23,8 +23,6 @@ public class EarningsServiceFacadeImpl implements EarningsServiceFacade {
         SimpleDateFormat parser = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy");
         Date dayDate = parser.parse(date);
         final Fee fee = earningsService.getTotalEarningsForDay(dayDate);
-        final FeeDTO feeDTO = new FeeDTO(fee.getFine().toString(), fee.getCurrency());
-
-        return feeDTO;
+        return new FeeDTO(fee);
     }
 }
