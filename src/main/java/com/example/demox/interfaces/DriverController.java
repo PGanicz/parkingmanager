@@ -18,14 +18,15 @@ class DriverController {
 
     @RequestMapping(value = "/ticket", method = RequestMethod.POST)
     public @ResponseBody
-    TicketDTO start(@RequestParam("DriverId") String driverIdStr) {
-        return parkingMeterServiceFacade.createNewTicket(driverIdStr);
+    TicketDTO start(@RequestParam("DriverId") String driverIdStr,
+                    @RequestParam("NumberPlate") String numberPlate) {
+        return parkingMeterServiceFacade.createNewTicket(driverIdStr, numberPlate);
     }
 
     @RequestMapping(value = "/fee", method = RequestMethod.POST)
     public @ResponseBody
-    String end(@RequestParam("StopoverId") String stopoverId) {
-        parkingMeterServiceFacade.createNewTicket(stopoverId);
+    String end(@RequestParam("TicketId") String ticketId) {
+        parkingMeterServiceFacade.payAFee(ticketId);
         return "Paid! Done";
     }
 

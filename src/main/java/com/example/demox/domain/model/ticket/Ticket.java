@@ -1,18 +1,21 @@
 package com.example.demox.domain.model.ticket;
 
 import com.example.demox.domain.model.driver.DriverId;
+import javafx.beans.binding.NumberBinding;
 
 import java.util.Date;
 
 public class Ticket {
     private TicketId ticketId;
     private DriverId driverId;
+    private NumberPlate numberPlate;
     private Date creationDate;
 
-    public Ticket(TicketId ticketId, DriverId driverId, Date creationDate) {
+    public Ticket(TicketId ticketId,NumberPlate numberPlate, DriverId driverId, Date creationDate) {
         this.ticketId = ticketId;
         this.driverId = driverId;
         this.creationDate = creationDate;
+        this.numberPlate = numberPlate;
     }
 
     public TicketId getTicketId() {
@@ -37,5 +40,13 @@ public class Ticket {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public NumberPlate getNumberPlate() {
+        return numberPlate;
+    }
+
+    public void setNumberPlate(NumberPlate numberPlate) {
+        this.numberPlate = numberPlate;
     }
 }

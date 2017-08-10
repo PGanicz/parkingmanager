@@ -8,12 +8,8 @@ import com.example.demox.domain.model.payment.Fee;
 import com.example.demox.domain.model.payment.FeeCalculationService;
 import com.example.demox.domain.model.payment.FeeRepository;
 import com.example.demox.domain.model.clock.ClockService;
-import com.example.demox.domain.model.ticket.Ticket;
+import com.example.demox.domain.model.ticket.*;
 
-import com.example.demox.domain.model.ticket.TicketId;
-import com.example.demox.domain.model.ticket.TicketRepository;
-
-import com.example.demox.domain.model.ticket.UnknownTicketException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -46,10 +42,10 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
     }
 
     @Override
-    public Ticket createNewTicket(final DriverId driverId) {
-        final TicketId stopoverId = ticketRepository.nextTicketId();
+    public Ticket createNewTicket(final DriverId driverId, final NumberPlate numberPlate) {
+        final TicketId ticketId = ticketRepository.nextTicketId();
         final Date registrationDate = clockService.getCurrentDate();
-        final Ticket ticket = new Ticket(stopoverId, driverId, registrationDate);
+        final Ticket ticket = new Ticket(ticketId, numberPlate, driverId, registrationDate);
 
         ticketRepository.store(ticket);
 

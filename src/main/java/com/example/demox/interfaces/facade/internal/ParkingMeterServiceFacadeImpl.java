@@ -3,6 +3,7 @@ package com.example.demox.interfaces.facade.internal;
 import com.example.demox.application.ParkingMeterService;
 import com.example.demox.domain.model.driver.DriverId;
 import com.example.demox.domain.model.payment.Fee;
+import com.example.demox.domain.model.ticket.NumberPlate;
 import com.example.demox.domain.model.ticket.Ticket;
 import com.example.demox.domain.model.ticket.TicketId;
 import com.example.demox.domain.model.ticket.UnknownTicketException;
@@ -19,10 +20,10 @@ public class ParkingMeterServiceFacadeImpl implements ParkingMeterServiceFacade 
     }
 
     @Override
-    public TicketDTO createNewTicket(String driverIdStr) {
+    public TicketDTO createNewTicket(String driverIdStr, String numberPlateStr) {
         final DriverId driverId = new DriverId(driverIdStr);
-
-        Ticket newTicket = parkingMeterService.createNewTicket(driverId);
+        final NumberPlate numberPlate = new NumberPlate(numberPlateStr);
+        Ticket newTicket = parkingMeterService.createNewTicket(driverId, numberPlate);
         return new TicketDTO(newTicket);
     }
 
