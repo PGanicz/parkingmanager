@@ -1,4 +1,4 @@
-package com.example.demox.domain.model;
+package com.example.demox.domain.model.stepover;
 
 public class StopoverId {
     private String id;

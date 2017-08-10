@@ -1,4 +1,4 @@
-package com.example.demox.domain.model;
+package com.example.demox.domain.model.driver;
 
 public class Driver {
     private DriverId driverId;
@@ -7,5 +7,9 @@ public class Driver {
     public enum Type {
         VIP,
         REGULAR
+    }
+
+    public Type getType() {
+        return type;
     }
 }

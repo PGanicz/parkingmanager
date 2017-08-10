@@ -1,6 +1,4 @@
-package com.example.demox.domain.model;
-
-import java.util.Date;
+package com.example.demox.domain.model.payment;
 
 public interface FeeCalculationStrategy {
 

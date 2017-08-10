@@ -1,8 +1,9 @@
-package com.example.demox.domain.model;
+package com.example.demox.domain.model.stepover;
 
 public interface StopoverRepository {
     StopoverId nextStopoverId();
     void store(Stopover stopover);
     void update(Stopover stopover);
-    Stopover find(StopoverId id);
+    Stopover findById(StopoverId id);
+    Stopover findByNumberPlate(NumberPlate plate);
 }

@@ -1,7 +1,7 @@
 package com.example.demox.application;
 
-import com.example.demox.domain.model.VehicleId;
+import com.example.demox.domain.model.stepover.NumberPlate;
 
 public interface ParkingCheckerService {
-    boolean check(final VehicleId vehicleId);
+    boolean check(final NumberPlate numberPlate);
 }

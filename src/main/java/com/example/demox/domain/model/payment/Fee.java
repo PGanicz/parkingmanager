@@ -1,8 +1,13 @@
-package com.example.demox.domain.model;
+package com.example.demox.domain.model.payment;
+
+import com.example.demox.domain.model.stepover.StopoverId;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Fee {
+    private StopoverId stopoverId;
+    private Date date;
     private BigDecimal fine;
     private String currency;
 

@@ -1,8 +1,8 @@
 package com.example.demox.infrastructure;
 
-import com.example.demox.domain.model.Driver;
-import com.example.demox.domain.model.DriverId;
-import com.example.demox.domain.model.DriverRepository;
+import com.example.demox.domain.model.driver.Driver;
+import com.example.demox.domain.model.driver.DriverId;
+import com.example.demox.domain.model.driver.DriverRepository;
 
 public class DriverRepositoryImpl implements DriverRepository {
     @Override

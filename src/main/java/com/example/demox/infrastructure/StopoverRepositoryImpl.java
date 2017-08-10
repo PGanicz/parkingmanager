@@ -1,8 +1,9 @@
 package com.example.demox.infrastructure;
 
-import com.example.demox.domain.model.Stopover;
-import com.example.demox.domain.model.StopoverId;
-import com.example.demox.domain.model.StopoverRepository;
+import com.example.demox.domain.model.stepover.NumberPlate;
+import com.example.demox.domain.model.stepover.Stopover;
+import com.example.demox.domain.model.stepover.StopoverId;
+import com.example.demox.domain.model.stepover.StopoverRepository;
 
 import java.util.Map;
 import java.util.UUID;
@@ -27,7 +28,12 @@ public class StopoverRepositoryImpl implements StopoverRepository {
     }
 
     @Override
-    public Stopover find(StopoverId id) {
-        return inMemoryBase.get(id);
+    public Stopover findById(StopoverId id) {
+        return null;
+    }
+
+    @Override
+    public Stopover findByNumberPlate(NumberPlate plate) {
+        return null;
     }
 }
