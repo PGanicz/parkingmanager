@@ -1,6 +1,5 @@
 package com.example.demox.infrastructure;
 
-import com.example.demox.domain.model.stepover.NumberPlate;
 import com.example.demox.domain.model.stepover.Stopover;
 import com.example.demox.domain.model.stepover.StopoverId;
 import com.example.demox.domain.model.stepover.StopoverRepository;
@@ -32,8 +31,4 @@ public class StopoverRepositoryImpl implements StopoverRepository {
         return null;
     }
 
-    @Override
-    public Stopover findByNumberPlate(NumberPlate plate) {
-        return null;
-    }
 }

@@ -1,7 +1,9 @@
 package com.example.demox.interfaces.facade.internal;
 
 import com.example.demox.application.ParkingCheckerService;
-import com.example.demox.domain.model.stepover.NumberPlate;
+
+import com.example.demox.domain.model.stepover.Stopover;
+import com.example.demox.domain.model.stepover.StopoverId;
 import com.example.demox.interfaces.facade.ParkingCheckerServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,8 +16,8 @@ public class ParkingCheckerServiceFacadeImpl implements ParkingCheckerServiceFac
     }
 
     @Override
-    public boolean check(String vehicleIdStr) {
-        final NumberPlate numberPlate = new NumberPlate(vehicleIdStr);
-        return parkingCheckerService.check(numberPlate);
+    public boolean check(String stopoverIdStr) {
+        final StopoverId stopoverId = new StopoverId(stopoverIdStr);
+        return parkingCheckerService.check(stopoverId);
     }
 }

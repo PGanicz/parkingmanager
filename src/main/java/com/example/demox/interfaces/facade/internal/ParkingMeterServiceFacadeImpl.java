@@ -4,7 +4,6 @@ import com.example.demox.application.ParkingMeterService;
 import com.example.demox.domain.model.driver.DriverId;
 import com.example.demox.domain.model.payment.Fee;
 import com.example.demox.domain.model.stepover.StopoverId;
-import com.example.demox.domain.model.stepover.NumberPlate;
 import com.example.demox.interfaces.facade.ParkingMeterServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,11 +16,10 @@ public class ParkingMeterServiceFacadeImpl implements ParkingMeterServiceFacade 
     }
 
     @Override
-    public String registerNewStopover(String vehicleIdStr, String driverIdStr) {
+    public String registerNewStopover(String driverIdStr) {
         final DriverId driverId = new DriverId(driverIdStr);
-        final NumberPlate numberPlate = new NumberPlate(vehicleIdStr);
         final StopoverId stopoverId =
-                parkingMeterService.registerNewStopover(driverId, numberPlate);
+                parkingMeterService.registerNewStopover(driverId);
 
         return stopoverId.getId();
     }

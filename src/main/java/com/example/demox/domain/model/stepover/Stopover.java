@@ -6,14 +6,12 @@ import java.util.Date;
 
 public class Stopover {
     private StopoverId stopoverId;
-    private NumberPlate numberPlate;
     private DriverId driverId;
     private Date arrival;
     private Date departure;
 
-    public Stopover(StopoverId stopoverId, NumberPlate numberPlate, DriverId driverId, Date arrival) {
+    public Stopover(StopoverId stopoverId, DriverId driverId, Date arrival) {
         this.stopoverId = stopoverId;
-        this.numberPlate = numberPlate;
         this.driverId = driverId;
         this.arrival = arrival;
     }

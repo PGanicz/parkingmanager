@@ -7,11 +7,10 @@ import com.example.demox.domain.model.driver.DriverRepository;
 import com.example.demox.domain.model.payment.Fee;
 import com.example.demox.domain.model.payment.FeeCalculationService;
 import com.example.demox.domain.model.payment.FeeRepository;
-import com.example.demox.domain.model.stepover.NumberPlate;
 import com.example.demox.domain.model.stepover.Stopover;
 import com.example.demox.domain.model.stepover.StopoverId;
 import com.example.demox.domain.model.stepover.StopoverRepository;
-import javafx.scene.paint.Stop;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -33,11 +32,10 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
     }
 
     @Override
-    public StopoverId registerNewStopover(final DriverId driverId,
-                                          final NumberPlate numberPlate) {
+    public StopoverId registerNewStopover(final DriverId driverId) {
         final StopoverId stopoverId = stopoverRepository.nextStopoverId();
 
-        final Stopover stopover = new Stopover(stopoverId, numberPlate, driverId, new Date());
+        final Stopover stopover = new Stopover(stopoverId, driverId, new Date());
 
         stopoverRepository.store(stopover);
 

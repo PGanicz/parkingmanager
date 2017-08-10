@@ -19,9 +19,8 @@ class DriverController {
     }
 
     @RequestMapping(value = "/stopover/start", method = RequestMethod.POST)
-    public String start(@RequestParam("VehicleId") String vehicleId,
-                        @RequestParam("NumberPlate") String numberPlate) {
-        return parkingMeterServiceFacade.registerNewStopover(vehicleId, numberPlate);
+    public String start(@RequestParam("DriverId") String driverIdStr) {
+        return parkingMeterServiceFacade.registerNewStopover(driverIdStr);
     }
 
     @RequestMapping(value = "/stopover/end", method = RequestMethod.POST)

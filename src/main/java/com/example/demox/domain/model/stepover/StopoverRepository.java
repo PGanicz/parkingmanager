@@ -5,5 +5,4 @@ public interface StopoverRepository {
     void store(Stopover stopover);
     void update(Stopover stopover);
     Stopover findById(StopoverId id);
-    Stopover findByNumberPlate(NumberPlate plate);
 }
