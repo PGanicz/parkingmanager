@@ -6,9 +6,11 @@ import com.example.demox.application.ParkingMeterService;
 import com.example.demox.application.impl.EarningsServiceImpl;
 import com.example.demox.application.impl.ParkingCheckerServiceImpl;
 import com.example.demox.application.impl.ParkingMeterServiceImpl;
+import com.example.demox.domain.model.clock.ClockService;
 import com.example.demox.domain.model.driver.DriverRepository;
 import com.example.demox.domain.model.payment.FeeRepository;
 import com.example.demox.domain.model.stepover.StopoverRepository;
+import com.example.demox.infrastructure.ClockServiceImpl;
 import com.example.demox.infrastructure.DriverRepositoryImpl;
 import com.example.demox.infrastructure.FeeRepostioryImpl;
 import com.example.demox.infrastructure.StopoverRepositoryImpl;
@@ -24,6 +26,10 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class DemoxApplication {
+	@Bean
+	ClockService clockService() {
+		return new ClockServiceImpl();
+	}
 	@Bean
 	StopoverRepository stopoverRepository() {
 		return new StopoverRepositoryImpl();

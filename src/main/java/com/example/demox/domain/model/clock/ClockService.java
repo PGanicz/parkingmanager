@@ -1,4 +1,4 @@
-package com.example.demox.domain.model.service;
+package com.example.demox.domain.model.clock;
 
 import java.util.Date;
 

@@ -7,7 +7,7 @@ import com.example.demox.domain.model.driver.DriverRepository;
 import com.example.demox.domain.model.payment.Fee;
 import com.example.demox.domain.model.payment.FeeCalculationService;
 import com.example.demox.domain.model.payment.FeeRepository;
-import com.example.demox.domain.model.service.ClockService;
+import com.example.demox.domain.model.clock.ClockService;
 import com.example.demox.domain.model.stepover.Stopover;
 import com.example.demox.domain.model.stepover.StopoverId;
 import com.example.demox.domain.model.stepover.StopoverRepository;

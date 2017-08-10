@@ -1,6 +1,6 @@
 package com.example.demox.infrastructure;
 
-import com.example.demox.domain.model.service.ClockService;
+import com.example.demox.domain.model.clock.ClockService;
 
 import java.util.Date;
 
