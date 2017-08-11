@@ -20,12 +20,6 @@ public class ParkMeterServiceImpl implements ParkMeterService {
     private DriverRepository driverRepository;
     private FeeRepository feeRepository;
     private ClockService clockService;
-    private FeeCalculationService feeCalculationService;
-
-    @Autowired
-    public void setFeeCalculationService(FeeCalculationService feeCalculationService) {
-        this.feeCalculationService = feeCalculationService;
-    }
 
     @Autowired
     public void setClockService(ClockService clockService) {
