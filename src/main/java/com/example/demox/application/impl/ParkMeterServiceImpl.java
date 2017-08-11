@@ -12,6 +12,7 @@ import com.example.demox.domain.model.ticket.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class ParkMeterServiceImpl implements ParkMeterService {
@@ -20,6 +21,12 @@ public class ParkMeterServiceImpl implements ParkMeterService {
     private DriverRepository driverRepository;
     private FeeRepository feeRepository;
     private ClockService clockService;
+    private FeeCalculationService feeCalculationService;
+
+    @Autowired
+    public void setFeeCalculationService(FeeCalculationService feeCalculationService) {
+        this.feeCalculationService = feeCalculationService;
+    }
 
     @Autowired
     public void setClockService(ClockService clockService) {
@@ -64,7 +71,7 @@ public class ParkMeterServiceImpl implements ParkMeterService {
         if (driver == null) {
             driver = new Driver(ticket.getDriverId(), Driver.Type.REGULAR);
         }
-        Fee fee = FeeCalculationService.countFee(ticket, completionDate, driver);
+        Fee fee = feeCalculationService.countFee(ticket, completionDate, driver);
         feeRepository.store(fee);
 
         ticketRepository.delete(ticket);
@@ -82,6 +89,7 @@ public class ParkMeterServiceImpl implements ParkMeterService {
         if (driver == null) {
             driver = new Driver(ticket.getDriverId(), Driver.Type.REGULAR);
         }
-        return FeeCalculationService.countFee(ticket, currentDate, driver);
+        Fee fee = feeCalculationService.countFee(ticket, currentDate, driver);
+        return fee;
     }
 }

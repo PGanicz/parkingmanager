@@ -8,6 +8,7 @@ import com.example.demox.application.impl.ParkingCheckerServiceImpl;
 import com.example.demox.application.impl.ParkMeterServiceImpl;
 import com.example.demox.domain.model.clock.ClockService;
 import com.example.demox.domain.model.driver.DriverRepository;
+import com.example.demox.domain.model.fee.FeeCalculationService;
 import com.example.demox.domain.model.fee.FeeRepository;
 import com.example.demox.domain.model.ticket.TicketRepository;
 import com.example.demox.infrastructure.ClockServiceImpl;
@@ -26,6 +27,10 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class DemoxApplication {
+	@Bean
+	FeeCalculationService feeCalculationService() {
+		return new FeeCalculationService();
+	}
 	@Bean
 	ClockService clockService() {
 		return new ClockServiceImpl();

@@ -22,10 +22,12 @@ public class FeeCalculationServiceTest extends TestCase {
     private Date hourLater;
     private Date twoHourAndHalfLater;
     private Date dayLater;
+    private FeeCalculationService feeCalculationService;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        feeCalculationService = new FeeCalculationService();
         vipDriver = new Driver(new DriverId("driverId1"), Driver.Type.VIP);
         regularDriver = new Driver(new DriverId("driverId2"), Driver.Type.REGULAR);
         this.creationTime = new Date();
@@ -38,36 +40,36 @@ public class FeeCalculationServiceTest extends TestCase {
     }
 
     public void testFeeCalculationForVipDriver() throws Exception {
-        Fee fee = FeeCalculationService.countFee(ticket, creationTime, regularDriver);
+        Fee fee = feeCalculationService.countFee(ticket, creationTime, regularDriver);
         assertEquals(new BigDecimal(0), fee.getFine());
 
-        fee = FeeCalculationService.countFee(ticket, creationTime, vipDriver);
+        fee = feeCalculationService.countFee(ticket, creationTime, vipDriver);
         assertEquals(new BigDecimal(0), fee.getFine());
 
-        fee = FeeCalculationService.countFee(ticket, hourLater, vipDriver);
+        fee = feeCalculationService.countFee(ticket, hourLater, vipDriver);
         assertEquals(new BigDecimal(2), fee.getFine());
 
-        fee = FeeCalculationService.countFee(ticket, twoHourAndHalfLater, vipDriver);
+        fee = feeCalculationService.countFee(ticket, twoHourAndHalfLater, vipDriver);
         assertEquals(new BigDecimal("5.0"), fee.getFine());
 
-        fee = FeeCalculationService.countFee(ticket, dayLater, vipDriver);
+        fee = feeCalculationService.countFee(ticket, dayLater, vipDriver);
         assertEquals(new BigDecimal("67332.44878411293029785156250"), fee.getFine());
     }
 
     public void testFeeCalculationForRegularDriver() throws Exception {
-        Fee fee = FeeCalculationService.countFee(ticket, creationTime, regularDriver);
+        Fee fee = feeCalculationService.countFee(ticket, creationTime, regularDriver);
         assertEquals(new BigDecimal(0), fee.getFine());
 
-        fee = FeeCalculationService.countFee(ticket, startetFirstHour, regularDriver);
+        fee = feeCalculationService.countFee(ticket, startetFirstHour, regularDriver);
         assertEquals(new BigDecimal(1), fee.getFine());
 
-        fee = FeeCalculationService.countFee(ticket, hourLater, regularDriver);
+        fee = feeCalculationService.countFee(ticket, hourLater, regularDriver);
         assertEquals(new BigDecimal(3), fee.getFine());
 
-        fee = FeeCalculationService.countFee(ticket, twoHourAndHalfLater, regularDriver);
+        fee = feeCalculationService.countFee(ticket, twoHourAndHalfLater, regularDriver);
         assertEquals(new BigDecimal(7), fee.getFine());
 
-        fee = FeeCalculationService.countFee(ticket, dayLater, regularDriver);
+        fee = feeCalculationService.countFee(ticket, dayLater, regularDriver);
         assertEquals(new BigDecimal(33554431), fee.getFine());
     }
 

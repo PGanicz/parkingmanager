@@ -10,7 +10,7 @@ import static com.example.demox.domain.model.driver.Driver.Type.VIP;
 
 public class FeeCalculationService {
 
-    public static Fee countFee(Ticket ticket, Date end, Driver driver) {
+    public Fee countFee(Ticket ticket, Date end, Driver driver) {
         final Date start = ticket.getCreationDate();
         int hoursBetween = calculateHoursBetweenDates(start, end);
         BigDecimal price = driver.getType() == VIP ? countFeeForVip(hoursBetween) :
@@ -18,17 +18,17 @@ public class FeeCalculationService {
         return new Fee(price, "PLN", end);
     }
 
-    private static BigDecimal countFeeForVip(int stopoverDurationInHours) {
+    private BigDecimal countFeeForVip(int stopoverDurationInHours) {
         if (stopoverDurationInHours == 0)
             return new BigDecimal("0");
         return sumOfGeomSeries(2, 1.5, stopoverDurationInHours -1);
     }
 
-    private static BigDecimal countFeeForRegular(int stopoverDurationInHours) {
+    private BigDecimal countFeeForRegular(int stopoverDurationInHours) {
         return sumOfGeomSeries(1, 2, stopoverDurationInHours);
     }
 
-    private static int calculateHoursBetweenDates(Date start, Date end) {
+    private int calculateHoursBetweenDates(Date start, Date end) {
         final long elapsedTime = (end.getTime() - start.getTime());
         final long sec = elapsedTime / 1000;
         final long minutes = sec / 60;
@@ -40,7 +40,7 @@ public class FeeCalculationService {
         return (int)(hours + 1);
     }
 
-    private static BigDecimal sumOfGeomSeries(double first, double ratio, int terms) {
+    private BigDecimal sumOfGeomSeries(double first, double ratio, int terms) {
         final BigDecimal qFactor = new BigDecimal(ratio);
         final BigDecimal nthValue = qFactor.pow(terms);
         final BigDecimal one = new BigDecimal(1);
