@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class FeeCalculationService {
 
-    public static Fee countFee(Ticket ticket,Date end, Driver driver) {
+    public static Fee countFee(Ticket ticket, Date end, Driver driver) {
         Date start = ticket.getCreationDate();
         Fee fee = countFee(start, end, driver);
         fee.setPaymentTime(end);

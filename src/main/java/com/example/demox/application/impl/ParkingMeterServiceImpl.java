@@ -44,8 +44,9 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
     @Override
     public Ticket createNewTicket(final DriverId driverId, final NumberPlate numberPlate) {
         final TicketId ticketId = ticketRepository.nextTicketId();
-        final Date registrationDate = clockService.getCurrentDate();
-        final Ticket ticket = new Ticket(ticketId, numberPlate, driverId, registrationDate);
+        final Date creationDate = clockService.getCurrentDate();
+
+        final Ticket ticket = new Ticket(ticketId, numberPlate, driverId, creationDate);
 
         ticketRepository.store(ticket);
 
@@ -56,6 +57,7 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
     public void payAFee(final TicketId ticketId) throws UnknownTicketException {
         final Date completionDate = clockService.getCurrentDate();
         final Ticket ticket = ticketRepository.findById(ticketId);
+
         if (ticket == null) {
             throw new UnknownTicketException(ticketId);
         }
@@ -65,7 +67,7 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
         }
         ticketRepository.update(ticket);
 
-        Fee fee = FeeCalculationService.countFee(ticket,completionDate, driver);
+        Fee fee = FeeCalculationService.countFee(ticket, completionDate, driver);
         feeRepository.store(fee);
     }
 
@@ -81,6 +83,6 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
         if (driver == null) {
             driver = new Driver(ticket.getDriverId(), Driver.Type.REGULAR);
         }
-        return FeeCalculationService.countFee(ticket,currentDate, driver);
+        return FeeCalculationService.countFee(ticket, currentDate, driver);
     }
 }
