@@ -1,6 +1,6 @@
 package com.example.demox.interfaces.facade.dto;
 
-import com.example.demox.domain.model.payment.Fee;
+import com.example.demox.domain.model.fee.Fee;
 
 public class FeeDTO {
     private final long value;

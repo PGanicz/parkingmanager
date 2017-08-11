@@ -1,8 +1,8 @@
 package com.example.demox.application.impl;
 
 import com.example.demox.application.EarningsService;
-import com.example.demox.domain.model.payment.Fee;
-import com.example.demox.domain.model.payment.FeeRepository;
+import com.example.demox.domain.model.fee.Fee;
+import com.example.demox.domain.model.fee.FeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;

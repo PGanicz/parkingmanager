@@ -4,9 +4,9 @@ import com.example.demox.application.ParkingMeterService;
 import com.example.demox.domain.model.driver.Driver;
 import com.example.demox.domain.model.driver.DriverId;
 import com.example.demox.domain.model.driver.DriverRepository;
-import com.example.demox.domain.model.payment.Fee;
-import com.example.demox.domain.model.payment.FeeCalculationService;
-import com.example.demox.domain.model.payment.FeeRepository;
+import com.example.demox.domain.model.fee.Fee;
+import com.example.demox.domain.model.fee.FeeCalculationService;
+import com.example.demox.domain.model.fee.FeeRepository;
 import com.example.demox.domain.model.clock.ClockService;
 import com.example.demox.domain.model.ticket.*;
 

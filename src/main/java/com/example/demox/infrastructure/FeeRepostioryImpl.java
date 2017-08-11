@@ -1,7 +1,7 @@
 package com.example.demox.infrastructure;
 
-import com.example.demox.domain.model.payment.Fee;
-import com.example.demox.domain.model.payment.FeeRepository;
+import com.example.demox.domain.model.fee.Fee;
+import com.example.demox.domain.model.fee.FeeRepository;
 
 import java.util.*;
 import java.util.function.Predicate;

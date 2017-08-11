@@ -2,7 +2,7 @@ package com.example.demox.interfaces.facade.internal;
 
 import com.example.demox.application.ParkingMeterService;
 import com.example.demox.domain.model.driver.DriverId;
-import com.example.demox.domain.model.payment.Fee;
+import com.example.demox.domain.model.fee.Fee;
 import com.example.demox.domain.model.ticket.NumberPlate;
 import com.example.demox.domain.model.ticket.Ticket;
 import com.example.demox.domain.model.ticket.TicketId;

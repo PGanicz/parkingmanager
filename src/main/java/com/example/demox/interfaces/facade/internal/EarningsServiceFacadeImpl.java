@@ -1,7 +1,7 @@
 package com.example.demox.interfaces.facade.internal;
 
 import com.example.demox.application.EarningsService;
-import com.example.demox.domain.model.payment.Fee;
+import com.example.demox.domain.model.fee.Fee;
 import com.example.demox.interfaces.facade.EarningsServiceFacade;
 import com.example.demox.interfaces.facade.dto.FeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;

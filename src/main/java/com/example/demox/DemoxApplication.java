@@ -8,7 +8,7 @@ import com.example.demox.application.impl.ParkingCheckerServiceImpl;
 import com.example.demox.application.impl.ParkingMeterServiceImpl;
 import com.example.demox.domain.model.clock.ClockService;
 import com.example.demox.domain.model.driver.DriverRepository;
-import com.example.demox.domain.model.payment.FeeRepository;
+import com.example.demox.domain.model.fee.FeeRepository;
 import com.example.demox.domain.model.ticket.TicketRepository;
 import com.example.demox.infrastructure.ClockServiceImpl;
 import com.example.demox.infrastructure.DriverRepositoryImpl;

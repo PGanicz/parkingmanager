@@ -1,6 +1,6 @@
 package com.example.demox.application;
 
-import com.example.demox.domain.model.payment.Fee;
+import com.example.demox.domain.model.fee.Fee;
 
 import java.util.Date;
 
