@@ -2,30 +2,39 @@ package com.example.demox.interfaces;
 
 
 import com.example.demox.DemoxApplication;
-import com.example.demox.interfaces.shared.ApiError;
+
 import com.jayway.jsonpath.JsonPath;
-import org.json.JSONObject;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
+
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.UUID;
 
-import static org.springframework.test.util.AssertionErrors.assertEquals;
+
+import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DemoxApplication.class)
@@ -41,41 +50,52 @@ public class DriverControllerTest  {
     }
 
     @Test
-    public void ticketIdNotFound() throws Exception {
-        MvcResult result = mockMvc.perform(get("/fee")
+    public void checkFeeForNonExistingTicket() throws Exception {
+        mockMvc.perform(get("/fee")
                 .param("TicketId","SDSFDF"))
-                .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andReturn();
-        String content = result.getResponse().getContentAsString();
-        String message = JsonPath.read(content, "$.message");
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.status", Matchers.is("BAD_REQUEST")))
+                .andExpect(jsonPath("$.message", Matchers.is("Ticket not exists.")));
+    }
+    @Test
+    public void payForNonExistingTicket() throws Exception {
+        mockMvc.perform(post("/fee")
+                .param("TicketId","SDSFDF"))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void newStopover() throws Exception {
-        mockMvc.perform(post("/stopover/start")
-                .param("DriverId", "FDAFDASF"))
+    public void createNewTicket() throws Exception {
+        mockMvc.perform(post("/ticket")
+                .param("DriverId", "FDAFDASF")
+                .param("NumberPlate", "BP99 NPC"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.ticketId").exists())
+                .andExpect(jsonPath("$.ticketId").isString())
+                .andExpect(jsonPath("$.creationTime").exists())
+                .andExpect(jsonPath("$.creationTime").isString());
+    }
+
+
+    @Test
+    public void getTicketAndPayFee() throws Exception {
+        MvcResult result = mockMvc.perform(post("/ticket")
+                .param("DriverId", "FDAFDASF")
+                .param("NumberPlate", "BP99 NPC"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.ticketId").exists())
+                .andExpect(jsonPath("$.ticketId").isString())
+                .andExpect(jsonPath("$.creationTime").exists())
+                .andExpect(jsonPath("$.creationTime").isString())
+                .andReturn();
+        String ticketId = JsonPath.read(result.getResponse().getContentAsString(),"$.ticketId");
+
+        mockMvc.perform(get("/fee")
+                .param("TicketId",ticketId))
                 .andExpect(status().isOk());
     }
 
-
-    @Test
-    public void newStartEnd() throws Exception {
-        MvcResult result = mockMvc.perform(post("/stopover/start")
-                .param("DriverId", "FDAFDASF"))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String uuidStr = result.getResponse().getContentAsString();
-        try {
-            UUID uuid = UUID.fromString(uuidStr);
-        } catch (IllegalArgumentException exception) {
-            assertTrue("The exception has been rised: " +exception.getMessage(),false);
-        }
-
-        MvcResult result2 = mockMvc.perform(post("/stopover/end")
-                .param("StopoverId", uuidStr))
-                .andExpect(status().isOk())
-                .andReturn();
-    }
 }
