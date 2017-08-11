@@ -73,11 +73,11 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
 
 
     @Override
-    public Fee getCurrentFee(TicketId stopoverId) throws UnknownTicketException {
+    public Fee getCurrentFee(TicketId ticketId) throws UnknownTicketException {
         final Date currentDate = clockService.getCurrentDate();
-        final Ticket ticket = ticketRepository.findById(stopoverId);
+        final Ticket ticket = ticketRepository.findById(ticketId);
         if (ticket == null) {
-            throw new UnknownTicketException(stopoverId);
+            throw new UnknownTicketException(ticketId);
         }
         Driver driver = driverRepository.find(ticket.getDriverId());
         if (driver == null) {

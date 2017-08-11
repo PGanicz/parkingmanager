@@ -2,6 +2,9 @@ package com.example.demox.interfaces;
 
 
 import com.example.demox.DemoxApplication;
+import com.example.demox.interfaces.shared.ApiError;
+import com.jayway.jsonpath.JsonPath;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,14 +41,14 @@ public class DriverControllerTest  {
     }
 
     @Test
-    public void stopoverIdNotFound() throws Exception {
-        MvcResult result = mockMvc.perform(get("/stopover/fee")
-                .param("StopoverId","SDSFDF"))
+    public void ticketIdNotFound() throws Exception {
+        MvcResult result = mockMvc.perform(get("/fee")
+                .param("TicketId","SDSFDF"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andReturn();
         String content = result.getResponse().getContentAsString();
-        assertEquals("It's a thief!", "false", content);
+        String message = JsonPath.read(content, "$.message");
     }
 
     @Test

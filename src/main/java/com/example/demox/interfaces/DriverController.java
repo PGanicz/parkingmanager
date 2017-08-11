@@ -1,10 +1,12 @@
 package com.example.demox.interfaces;
 
+import com.example.demox.domain.model.ticket.UnknownTicketException;
 import com.example.demox.interfaces.facade.ParkingMeterServiceFacade;
 import com.example.demox.interfaces.facade.dto.FeeDTO;
 import com.example.demox.interfaces.facade.dto.TicketDTO;
-import com.example.demox.interfaces.facade.internal.ParkingMeterServiceFacadeImpl;
+import com.example.demox.interfaces.shared.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,13 +27,21 @@ class DriverController {
     }
 
     @RequestMapping(value = "/fee", method = RequestMethod.POST)
-    public void payFee(@RequestParam("TicketId") String ticketId) {
+    public void payFee(@RequestParam("TicketId") String ticketId) throws UnknownTicketException {
         parkingMeterServiceFacade.payAFee(ticketId);
     }
 
     @RequestMapping(value = "/fee", method = RequestMethod.GET)
     public @ResponseBody
-    FeeDTO getFee(@RequestParam("TicketId") String stopoverId) {
-        return parkingMeterServiceFacade.getCurrentFee(stopoverId);
+    FeeDTO getFee(@RequestParam("TicketId") String ticketId)  throws UnknownTicketException{
+        return parkingMeterServiceFacade.getCurrentFee(ticketId);
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({UnknownTicketException.class})
+    public @ResponseBody
+    ApiError handleUnknownTicketException(UnknownTicketException ex) {
+        return new ApiError(HttpStatus.BAD_REQUEST, "Ticket not exists.");
+    }
+
 }

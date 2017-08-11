@@ -10,6 +10,6 @@ public class UnknownTicketException extends Exception {
 
     @Override
     public String getMessage() {
-        return "No stopover with stopover id " + ticketId.toString() + "exists in the system";
+        return "No ticket with id " + ticketId.toString() + "exists in the system";
     }
 }

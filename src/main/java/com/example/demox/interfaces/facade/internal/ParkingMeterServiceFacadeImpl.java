@@ -29,24 +29,16 @@ public class ParkingMeterServiceFacadeImpl implements ParkingMeterServiceFacade 
     }
 
     @Override
-    public void payAFee(String ticketIdStr) {
+    public void payAFee(String ticketIdStr) throws UnknownTicketException {
         final TicketId ticketId = new TicketId(ticketIdStr);
-        try {
-            parkingMeterService.payAFee(ticketId);
-        } catch (UnknownTicketException e) {
-            e.printStackTrace();
-        }
+
+        parkingMeterService.payAFee(ticketId);
     }
 
     @Override
-    public FeeDTO getCurrentFee(String stopoverIdStr) {
-        final TicketId stopoverId = new TicketId(stopoverIdStr);
-        Fee fee = null;
-        try {
-            fee = parkingMeterService.getCurrentFee(stopoverId);
-        } catch (UnknownTicketException e) {
-            e.printStackTrace();
-        }
+    public FeeDTO getCurrentFee(String ticketIdStr) throws UnknownTicketException {
+        final TicketId ticketId = new TicketId(ticketIdStr);
+        Fee fee = parkingMeterService.getCurrentFee(ticketId);
         return new FeeDTO(fee);
     }
 }

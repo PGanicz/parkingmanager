@@ -29,10 +29,6 @@ public class TicketRepositoryImpl implements TicketRepository {
         inMemoryBase.remove(ticket.getTicketId());
     }
 
-    @Override
-    public void update(Ticket ticket) {
-        inMemoryBase.put(ticket.getTicketId(), ticket);
-    }
 
     @Override
     public List<Ticket> findAll() {
