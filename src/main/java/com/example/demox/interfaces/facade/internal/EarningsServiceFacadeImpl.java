@@ -20,7 +20,7 @@ public class EarningsServiceFacadeImpl implements EarningsServiceFacade {
 
     @Override
     public FeeDTO getTotalEarningsForDay(String date) throws ParseException {
-        SimpleDateFormat parser = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy");
+        SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
         Date dayDate = parser.parse(date);
         final Fee fee = earningsService.getTotalEarningsForDay(dayDate);
         return new FeeDTO(fee);

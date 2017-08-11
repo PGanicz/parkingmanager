@@ -20,7 +20,7 @@ public class ParkingOwnerController {
 
     @RequestMapping(value = "/earnings", method = RequestMethod.GET)
     public @ResponseBody
-    FeeDTO getEarningsForDay(String day) throws ParseException {
+    FeeDTO getEarningsForDay(@RequestParam("date") String day) throws ParseException {
         return earningsServiceFacade.getTotalEarningsForDay(day);
     }
 }
