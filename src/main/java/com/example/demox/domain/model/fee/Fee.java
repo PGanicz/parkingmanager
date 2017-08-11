@@ -13,6 +13,12 @@ public class Fee {
         this.currency = currency;
     }
 
+    public Fee(BigDecimal fine, String currency, Date paymentTime) {
+        this.paymentTime = paymentTime;
+        this.fine = fine;
+        this.currency = currency;
+    }
+
     public void setCurrency(String currency) {
         this.currency = currency;
     }
@@ -26,7 +32,7 @@ public class Fee {
     }
 
     public BigDecimal getFine() {
-        return new BigDecimal(fine.byteValueExact());
+        return fine;
     }
 
     public String getCurrency() {

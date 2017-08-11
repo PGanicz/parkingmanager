@@ -6,24 +6,26 @@ import com.example.demox.domain.model.ticket.Ticket;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import static com.example.demox.domain.model.driver.Driver.Type.VIP;
+
 public class FeeCalculationService {
 
     public static Fee countFee(Ticket ticket, Date end, Driver driver) {
-        Date start = ticket.getCreationDate();
-        Fee fee = countFee(start, end, driver);
-        fee.setPaymentTime(end);
-        return fee;
+        final Date start = ticket.getCreationDate();
+        int hoursBetween = calculateHoursBetweenDates(start, end);
+        BigDecimal price = driver.getType() == VIP ? countFeeForVip(hoursBetween) :
+                countFeeForRegular(hoursBetween);
+        return new Fee(price, "PLN", end);
     }
 
-    public static Fee countFee(Date start, Date end, Driver driver) {
-        int hoursBetween = calculateHoursBetweenDates(start, end);
-        BigDecimal price;
-        if (driver.getType() == Driver.Type.VIP) {
-            price = sumOfGeomSeries(2 ,1.5, hoursBetween - 1);
-        } else {
-            price = sumOfGeomSeries(1, 2, hoursBetween);
-        }
-        return new Fee(price, "PLN");
+    private static BigDecimal countFeeForVip(int stopoverDurationInHours) {
+        if (stopoverDurationInHours == 0)
+            return new BigDecimal("0");
+        return sumOfGeomSeries(2, 1.5, stopoverDurationInHours -1);
+    }
+
+    private static BigDecimal countFeeForRegular(int stopoverDurationInHours) {
+        return sumOfGeomSeries(1, 2, stopoverDurationInHours);
     }
 
     private static int calculateHoursBetweenDates(Date start, Date end) {
