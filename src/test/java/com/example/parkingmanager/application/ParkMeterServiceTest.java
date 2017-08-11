@@ -12,7 +12,8 @@ import com.example.parkingmanager.domain.model.ticket.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.statements.SpringRepeat;
 
 
 import java.math.BigDecimal;
@@ -22,11 +23,11 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 
 
-@RunWith(PowerMockRunner.class)
+
+@RunWith(SpringRunner.class)
 public class ParkMeterServiceTest {
     private ParkMeterServiceImpl parkMeterService;
 
@@ -96,7 +97,6 @@ public class ParkMeterServiceTest {
     }
     @Test
     public void testPayAFeeForTicket() {
-
         when(clockService.getCurrentDate()).thenReturn(creationDate);
         when(ticketRepository.findById(ticketId)).thenReturn(ticket);
         when(driverRepository.find(driverId)).thenReturn(vipDriver);
@@ -108,13 +108,12 @@ public class ParkMeterServiceTest {
         }
 
         verify(feeRepository,times(1))
-                .store(fee);
+                .store(any());
         verify(ticketRepository, times(1))
                 .delete(ticket);
     }
     @Test
     public void testGetFeeOfNotExistingTicket() {
-        mockStatic(FeeCalculationService.class);
         when(clockService.getCurrentDate()).thenReturn(creationDate);
         when(ticketRepository.findById(ticketId)).thenReturn(null);
 
