@@ -4,7 +4,7 @@ public class StateDTO {
     String state;
 
     public StateDTO(boolean state) {
-        this.state = state ? "That vehicle was registered." : "Unknown vehicle.";
+        this.state = state ? "That vehicle has been registered." : "Unknown vehicle.";
     }
 
     public String getState() {
