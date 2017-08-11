@@ -1,6 +1,6 @@
 package com.example.demox.interfaces.facade.internal;
 
-import com.example.demox.application.ParkingMeterService;
+import com.example.demox.application.ParkMeterService;
 import com.example.demox.domain.model.driver.DriverId;
 import com.example.demox.domain.model.fee.Fee;
 import com.example.demox.domain.model.ticket.NumberPlate;
@@ -13,18 +13,18 @@ import com.example.demox.interfaces.facade.dto.TicketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ParkingMeterServiceFacadeImpl implements ParkingMeterServiceFacade {
-    private ParkingMeterService parkingMeterService;
+    private ParkMeterService parkMeterService;
 
     @Autowired
-    public void setParkingMeterService(ParkingMeterService parkingMeterService) {
-        this.parkingMeterService = parkingMeterService;
+    public void setParkMeterService(ParkMeterService parkMeterService) {
+        this.parkMeterService = parkMeterService;
     }
 
     @Override
     public TicketDTO createNewTicket(String driverIdStr, String numberPlateStr) {
         final DriverId driverId = new DriverId(driverIdStr);
         final NumberPlate numberPlate = new NumberPlate(numberPlateStr);
-        Ticket newTicket = parkingMeterService.createNewTicket(driverId, numberPlate);
+        Ticket newTicket = parkMeterService.createNewTicket(driverId, numberPlate);
         return new TicketDTO(newTicket);
     }
 
@@ -32,13 +32,13 @@ public class ParkingMeterServiceFacadeImpl implements ParkingMeterServiceFacade 
     public void payAFee(String ticketIdStr) throws UnknownTicketException {
         final TicketId ticketId = new TicketId(ticketIdStr);
 
-        parkingMeterService.payAFee(ticketId);
+        parkMeterService.payAFee(ticketId);
     }
 
     @Override
     public FeeDTO getCurrentFee(String ticketIdStr) throws UnknownTicketException {
         final TicketId ticketId = new TicketId(ticketIdStr);
-        Fee fee = parkingMeterService.getCurrentFee(ticketId);
+        Fee fee = parkMeterService.getCurrentFee(ticketId);
         return new FeeDTO(fee);
     }
 }

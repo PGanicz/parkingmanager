@@ -2,10 +2,10 @@ package com.example.demox;
 
 import com.example.demox.application.EarningsService;
 import com.example.demox.application.ParkingCheckerService;
-import com.example.demox.application.ParkingMeterService;
+import com.example.demox.application.ParkMeterService;
 import com.example.demox.application.impl.EarningsServiceImpl;
 import com.example.demox.application.impl.ParkingCheckerServiceImpl;
-import com.example.demox.application.impl.ParkingMeterServiceImpl;
+import com.example.demox.application.impl.ParkMeterServiceImpl;
 import com.example.demox.domain.model.clock.ClockService;
 import com.example.demox.domain.model.driver.DriverRepository;
 import com.example.demox.domain.model.fee.FeeRepository;
@@ -53,8 +53,8 @@ public class DemoxApplication {
 		return new ParkingCheckerServiceImpl();
 	}
 	@Bean
-	ParkingMeterService parkingMeterService() {
-		return new ParkingMeterServiceImpl();
+    ParkMeterService parkingMeterService() {
+		return new ParkMeterServiceImpl();
 	}
 
 	@Bean
