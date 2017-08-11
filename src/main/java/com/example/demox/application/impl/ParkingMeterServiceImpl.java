@@ -13,6 +13,7 @@ import com.example.demox.domain.model.ticket.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.concurrent.Delayed;
 
 public class ParkingMeterServiceImpl implements ParkingMeterService {
 
@@ -49,7 +50,6 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
         final Ticket ticket = new Ticket(ticketId, numberPlate, driverId, creationDate);
 
         ticketRepository.store(ticket);
-
         return ticket;
     }
 
@@ -57,18 +57,18 @@ public class ParkingMeterServiceImpl implements ParkingMeterService {
     public void payAFee(final TicketId ticketId) throws UnknownTicketException {
         final Date completionDate = clockService.getCurrentDate();
         final Ticket ticket = ticketRepository.findById(ticketId);
-
         if (ticket == null) {
             throw new UnknownTicketException(ticketId);
         }
+
         Driver driver = driverRepository.find(ticket.getDriverId());
         if (driver == null) {
             driver = new Driver(ticket.getDriverId(), Driver.Type.REGULAR);
         }
-        ticketRepository.update(ticket);
-
         Fee fee = FeeCalculationService.countFee(ticket, completionDate, driver);
         feeRepository.store(fee);
+
+        ticketRepository.delete(ticket);
     }
 
 

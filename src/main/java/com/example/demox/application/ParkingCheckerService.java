@@ -1,7 +1,7 @@
 package com.example.demox.application;
 
-import com.example.demox.domain.model.ticket.TicketId;
+import com.example.demox.domain.model.ticket.NumberPlate;
 
 public interface ParkingCheckerService {
-    boolean getState(final TicketId ticketId);
+    boolean hasTicket(final NumberPlate numberPlate);
 }
